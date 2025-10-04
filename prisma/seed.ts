@@ -1,20 +1,24 @@
 import { PrismaClient } from "@prisma/client";
+import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.user.createMany({
-    data: [
-      { name: "John Doe", email: "john@example.com" },
-      { name: "Jane Doe", email: "jane@example.com" },
-    ],
+  const hashedPassword = await hash("Password123!", 10);
+
+  await prisma.user.create({
+    data: {
+      name: "Test User",
+      email: "test@example.com",
+      password: hashedPassword,
+    },
   });
-  console.log("Seeding complete");
 }
 
 main()
   .catch((e) => {
     console.error(e);
+    process.exit(1);
   })
   .finally(async () => {
     await prisma.$disconnect();

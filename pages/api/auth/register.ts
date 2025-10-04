@@ -15,6 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           name,
           email,
           password: hashedPassword,
+          active: true,
         },
       });
       res.status(201).json({ message: "User created" });
