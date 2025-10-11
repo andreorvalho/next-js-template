@@ -5,6 +5,6 @@ module.exports = {
       // implement node event listeners here
       require('./cypress/plugins/index.js')(on, config);
     },
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://localhost:3001',
   },
 };

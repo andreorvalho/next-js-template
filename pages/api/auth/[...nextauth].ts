@@ -1,18 +1,8 @@
-import NextAuth, { Session } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
-
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-    };
-  }
-}
+import type { User as UserType } from "@/types";
 
 const prisma = new PrismaClient();
 
@@ -28,9 +18,9 @@ export default NextAuth({
         if (!credentials) {
           return null;
         }
-        const user = await prisma.user.findUnique({
+        const user = (await prisma.user.findUnique({
           where: { email: credentials.email },
-        });
+        })) as UserType | null;
 
         if (user && (await compare(credentials.password, user.password))) {
           return { id: user.id.toString(), name: user.name, email: user.email };
