@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
-import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const router = useRouter();
 
@@ -18,7 +18,7 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await signIn("credentials", {
+    const result = await signIn('credentials', {
       redirect: false,
       email,
       password,
@@ -27,13 +27,17 @@ export default function Login() {
     if (result && result.error) {
       setError(result.error);
     } else {
-      router.push("/");
+      router.push('/');
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white border border-gray-200 shadow-md rounded-lg">
-      {success && <p className="text-green-500">Registration successful! Please log in.</p>}
+      {success && (
+        <p className="text-green-500">
+          Registration successful! Please log in.
+        </p>
+      )}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
@@ -61,7 +65,10 @@ export default function Login() {
         <button type="submit">Login</button>
       </form>
       <p className="mt-4">
-        Don't have an account? <Link href="/register" className="text-blue-500">Register</Link>
+        Don&apos;t have an account?{' '}
+        <Link href="/register" className="text-blue-500">
+          Register
+        </Link>
       </p>
     </div>
   );
