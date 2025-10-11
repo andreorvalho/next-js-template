@@ -45,6 +45,7 @@ echo DATABASE_URL="postgresql://magicbook_admin:magicbook_password@localhost:543
 ```
 
 Add this code to prisma/schema.prisma
+
 ```js
 generator client {
   provider = "prisma-client-js"
@@ -77,14 +78,14 @@ touch prisma/seed.ts
 Add this code to it.
 
 ```js
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
   await prisma.user.createMany({
     data: [
-      { name: "John Doe", email: "john@example.com" },
-      { name: "Jane Doe", email: "jane@example.com" }
-    ]
+      { name: 'John Doe', email: 'john@example.com' },
+      { name: 'Jane Doe', email: 'jane@example.com' },
+    ],
   });
 }
 ```
@@ -104,17 +105,18 @@ mkdir api
 cd api
 touch users.ts
 ```
+
 Add this code
 
 ```js
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 export default async function handler(req, res) {
-  if (req.method === "GET") {
+  if (req.method === 'GET') {
     const users = await prisma.user.findMany();
     return res.json(users);
   }
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const { name, email } = req.body;
     const newUser = await prisma.user.create({ data: { name, email } });
     return res.status(201).json(newUser);
@@ -129,18 +131,22 @@ touch pages/index.tsx
 Add this code there:
 
 ```js
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 export default function Home() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch("/api/users").then((res) => res.json()).then(setUsers);
+    fetch('/api/users')
+      .then((res) => res.json())
+      .then(setUsers);
   }, []);
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">User List</h1>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>{user.name} ({user.email})</li>
+          <li key={user.id}>
+            {user.name} ({user.email})
+          </li>
         ))}
       </ul>
     </div>
@@ -160,4 +166,5 @@ touch types/index.ts
 ```bash
   npm run dev
 ```
+
 // 11. Deploy Frontend on Vercel and Database on Railway/Supabase
