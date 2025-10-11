@@ -44,6 +44,14 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/magicbook_test?schema=public
           JWT_SECRET: 11340eb5d2b0eb56d429d5e6db9c86bbce392399189a6e008f6282589c520fc5
 
+      - name: Start test server
+        run: |
+          npm run dev:test &
+          npx wait-on http://localhost:3001
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/magicbook_test?schema=public
+          JWT_SECRET: 11340eb5d2b0eb56d429d5e6db9c86bbce392399189a6e008f6282589c520fc5
+
       - name: Run Cypress tests
         run: npx dotenv-cli -e .env.test -- cypress run
         env:
