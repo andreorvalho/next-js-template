@@ -1,4 +1,4 @@
-name: TypeScript Type Check
+name: Type Check
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   type-check:
-    name: TypeScript Type Checking
+    name: TypeScript
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
