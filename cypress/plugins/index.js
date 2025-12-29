@@ -32,9 +32,6 @@ module.exports = (on, config) => {
     });
   };
 
-  // Reset database before running tests
-  on('before:run', () => resetDatabase());
-
   // Add custom commands for database operations
   on('task', {
     resetTestDatabase() {
