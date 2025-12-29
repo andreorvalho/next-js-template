@@ -27,14 +27,8 @@ export default function Login() {
 
     if (result?.error) {
       setError(result.error);
-    } else if (result?.ok) {
-      // Use replace to avoid adding to history, and ensure redirect works in tests
-      router.replace('/').catch(() => {
-        // Fallback for test environments where router might not work
-        window.location.href = '/';
-      });
     } else {
-      setError('Login failed. Please try again.');
+      router.push('/');
     }
   };
 
