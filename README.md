@@ -69,8 +69,8 @@ GRANT ALL PRIVILEGES ON DATABASE next_js_template_test TO next_js_template_admin
 create a .env.test file with a `DATABASE_URL` value using these new values as per `.env.development.example`. Also with a `JWT_SECRET`
 
 ```bash
-  npx dotenv -e .env.test -- npx prisma generate
-  npx dotenv -e .env.test -- npx prisma migrate reset --force
+  NODE_ENV=test npx dotenv -e .env.test -- npx prisma generate
+  NODE_ENV=test npx dotenv -e .env.test -- npx prisma migrate reset --force
   npm run dev:test
 ```
 
@@ -87,10 +87,10 @@ Run tests on browser
 or to run the setup and the tests on the terminal do:
 
 ```bash
-  npm dotenv -e .env.test -- npm run test
+  npx dotenv -e .env.test -- npm run test
 ```
 
-## 45 Deployment on vercel
+## 5. Deployment on vercel
 
 You need to create 2 new variables
 JWT_SECRET=
