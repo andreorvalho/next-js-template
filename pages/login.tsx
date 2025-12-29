@@ -18,16 +18,23 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     const result = await signIn('credentials', {
       redirect: false,
       email,
       password,
     });
 
-    if (result && result.error) {
+    if (result?.error) {
       setError(result.error);
+    } else if (result?.ok) {
+      // Use replace to avoid adding to history, and ensure redirect works in tests
+      router.replace('/').catch(() => {
+        // Fallback for test environments where router might not work
+        window.location.href = '/';
+      });
     } else {
-      router.push('/');
+      setError('Login failed. Please try again.');
     }
   };
 

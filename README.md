@@ -17,10 +17,7 @@ This is a guide for setting up a simple **Next.js** application with **Prisma** 
 
 To get started, you'll need to install the following dependencies:
 
-```bash
-npm install next react react-dom @prisma/client @next/font tailwindcss postcss autoprefixer dotenv
-npm i -D ts-node typescript @types/node @types/react
-```
+Postgres
 
 ## 2. Database Setup
 
@@ -49,13 +46,51 @@ seed the database:
 npx dotenv-cli -e .env.development npx prisma db seed
 ```
 
-## 3. Run server
+## 3. Run development server
 
 ```bash
   npm run dev
 ```
 
-## 4. Deployment on vercel
+## 4. Run tests
+
+Setup test database and server:
+```bash
+psql postgres
+```
+
+```sql
+CREATE DATABASE next_js_template_test;
+CREATE USER next_js_template_admin_test WITH PASSWORD 'next_js_template_passsword_test';
+ALTER USER next_js_template_admin_test CREATEDB;
+GRANT ALL PRIVILEGES ON DATABASE next_js_template_test TO next_js_template_admin_test;
+```
+
+create a .env.test file with a `DATABASE_URL` value using these new values as per `.env.development.example`. Also with a `JWT_SECRET`
+
+```bash
+  npx dotenv -e .env.test -- npx prisma generate
+  npx dotenv -e .env.test -- npx prisma migrate reset --force
+  npm run dev:test
+```
+
+Run tests on terminal
+```bash
+  npm run test:cypress
+```
+
+Run tests on browser
+```bash
+  npm run test:open
+```
+
+or to run the setup and the tests on the terminal do:
+
+```bash
+  npm dotenv -e .env.test -- npm run test
+```
+
+## 45 Deployment on vercel
 
 You need to create 2 new variables
 JWT_SECRET=
