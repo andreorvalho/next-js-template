@@ -9,7 +9,7 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "tsc --noEmit",
+    "type-check": "npx prisma generate && tsc --noEmit",
     "test": "NODE_ENV=test npx dotenv-cli -e .env.test -- npx prisma migrate deploy && npx dotenv-cli -e .env.test -- sh -c \"PORT_PID=$(lsof -ti tcp:3001 || true); if [ -n \\\"$PORT_PID\\\" ]; then kill $PORT_PID >/dev/null 2>&1 || true; fi; npm run dev:test & SERVER_PID=$!; trap 'kill \\\"$SERVER_PID\\\" >/dev/null 2>&1 || true' EXIT; npx wait-on http://localhost:3001 && npx cypress run --config-file cypress.config.js\"",
     "test:cypress": "NODE_ENV=test cypress run --config-file cypress.config.js",
     "test:open": "NODE_ENV=test cypress open --config-file cypress.config.js",
