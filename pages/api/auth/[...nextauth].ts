@@ -5,7 +5,7 @@ import { compare } from 'bcryptjs';
 import type { User as UserType } from '@/types';
 
 export default (NextAuth as any)({
-  secret: process.env.NEXTAUTH_SECRET ,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     CredentialsProvider({
       name: 'Credentials',

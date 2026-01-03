@@ -55,6 +55,7 @@ npx dotenv-cli -e .env.development npx prisma db seed
 ## 4. Run tests
 
 Setup test database and server:
+
 ```bash
 psql postgres
 ```
@@ -75,11 +76,13 @@ create a .env.test file with a `DATABASE_URL` value using these new values as pe
 ```
 
 Run tests on terminal
+
 ```bash
   npm run test:cypress
 ```
 
 Run tests on browser
+
 ```bash
   npm run test:open
 ```
