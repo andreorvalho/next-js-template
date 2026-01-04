@@ -18,13 +18,14 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     const result = await signIn('credentials', {
       redirect: false,
       email,
       password,
     });
 
-    if (result && result.error) {
+    if (result?.error) {
       setError(result.error);
     } else {
       router.push('/');
