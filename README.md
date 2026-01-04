@@ -1,16 +1,9 @@
-# Full Next.js + Prisma App
-
-This is a guide for setting up a simple **Next.js** application with **Prisma** for database management. The app includes basic user functionality, such as listing and adding users.
-
 ## Table of Contents
 
 - [Installation](#installation)
-- [Prisma Setup](#prisma-setup)
-- [Seeding Database](#seeding-database)
-- [API Routes](#api-routes)
-- [UI Implementation](#ui-implementation)
-- [Git Setup](#git-setup)
+- [Database Setup](#database-setup)
 - [Running the App](#running-the-app)
+- [Testing](#testing)
 - [Deploying](#deploying)
 
 ## Installation
@@ -19,7 +12,7 @@ To get started, you'll need to install the following dependencies:
 
 Postgres
 
-## 2. Database Setup
+## Database Setup
 
 Create the database in postgres:
 
@@ -46,13 +39,13 @@ seed the database:
 npx dotenv-cli -e .env.development npx prisma db seed
 ```
 
-## 3. Run development server
+## Running the App
 
 ```bash
   npm run dev
 ```
 
-## 4. Run tests
+## Testing
 
 Setup test database and server:
 
@@ -93,14 +86,17 @@ or to run the setup and the tests on the terminal do:
   npx dotenv -e .env.test -- npm run test
 ```
 
-## 5. Deployment on vercel
+## Deploying
 
 You need to create 2 new variables
 JWT_SECRET=
 NEXTAUTH_SECRET=
 
 Please check the env.development.example for more variables
+To create new values for the variables you can do:
 
 ```bash
-  npm run build
+  openssl rand -hex 32
 ```
+
+We are deployed on vercel.
