@@ -19,16 +19,24 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    const result = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
+    setSuccess(false);
+    
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
 
-    if (result?.error) {
-      setError(result.error);
-    } else {
-      router.push('/');
+      if (result?.error) {
+        setError(result.error);
+      } else if (result?.ok) {
+        router.push('/');
+      } else {
+        setError('An unexpected error occurred. Please try again.');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
     }
   };
 
