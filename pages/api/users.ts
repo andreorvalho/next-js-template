@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '@lib/prisma';
 import { Request, Response } from '../../types';
 import { z } from 'zod';
-
-const prisma = new PrismaClient();
 
 export default async function handler(req: Request, res: Response) {
   if (req.method === 'GET') {
