@@ -6,7 +6,6 @@ module.exports = (on, config) => {
   const resetDatabase = () => {
     return new Promise((resolve, reject) => {
       // Reset the database - this will apply migrations but may skip seed
-      // We'll run seed explicitly after to ensure it uses the correct environment
       exec('NODE_ENV=test npx dotenv-cli -e .env.test -- npx prisma migrate reset --force', {
         env: process.env,
         cwd: path.resolve(__dirname, '../..'),
@@ -18,7 +17,7 @@ module.exports = (on, config) => {
 
         // Always run seed explicitly to ensure it runs with the correct environment
         // Run the seed script directly from package.json since prisma.config.ts doesn't have seed configured
-        exec('NODE_ENV=test npx dotenv-cli -e .env.test -- node -r ts-node/register/transpile-only prisma/seed.ts', {
+        exec('NODE_ENV=test npx dotenv-cli -e .env.test -- node -r ts-node/register/transpile-only -r tsconfig-paths/register prisma/seed.ts', {
           env: process.env,
           cwd: path.resolve(__dirname, '../..'),
         }, (seedErr, seedStdout, seedStderr) => {
